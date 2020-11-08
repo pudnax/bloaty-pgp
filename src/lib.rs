@@ -15,11 +15,11 @@ pub fn verify_cleartext_message(source: &str, public_key_path: &str) -> anyhow::
     let key = read_to_string_convert_newlines(public_key_path)?;
     let key = pgp::PublicKey::parse(&key)?;
 
-    // if cleartext_signature.verify(&key)? {
-    //     println!("Signature is valid.");
-    // } else {
-    //     return Err(anyhow!("Signature is invalid."));
-    // }
+    if cleartext_signature.verify(&key)? {
+        println!("Signature is valid.");
+    } else {
+        return Err(anyhow!("Signature is invalid."));
+    }
 
     Ok(())
 }
